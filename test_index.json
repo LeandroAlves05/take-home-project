@@ -1,0 +1,32 @@
+[
+  {
+    "name": "random-forest.png",
+    "path": "test_data/random-forest.png",
+    "size_bytes": 170098,
+    "type": "image/png"
+  },
+  {
+    "name": "linear-regression-plot.jpg",
+    "path": "test_data/linear-regression-plot.jpg",
+    "size_bytes": 19782,
+    "type": "image/jpeg"
+  },
+  {
+    "name": "sample.pdf",
+    "path": "test_data/sample.pdf",
+    "size_bytes": 6566,
+    "type": "application/pdf"
+  },
+  {
+    "name": "user1.json",
+    "path": "test_data/data/user1.json",
+    "size_bytes": 16,
+    "type": "application/json"
+  },
+  {
+    "name": "user2.json",
+    "path": "test_data/data/user2.json",
+    "size_bytes": 17,
+    "type": "application/json"
+  }
+]
