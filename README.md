@@ -52,6 +52,17 @@ Searches for files in the index based on name, size, and/or content type
       python main.py search user1.json
     ```
 
+ You can also search for multiple files with the same name
+  ```bash
+    python main.py search user
+  ```
+  - Output:
+    ```bash
+    Found 2 results:
+      - user1.json (17 bytes, application/json) at test_data/data\user1.json
+      - user2.json (18 bytes, application/json) at test_data/data\user2.json
+    ```
+
 **Search by Size**
   ```bash
     python main.py search "" --size <size-in-bytes>
