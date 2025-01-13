@@ -9,13 +9,13 @@ def create_index(directory, output_file="index.json"):
     for root, _, files in os.walk(directory):
         for file in files:
             file_path = os.path.join(root, file)
-            file_size = os.path.getsize(file_path)
+            stat = os.stat(file_path)
             file_type = mimetypes.guess_type(file_path)[0]
             index.append(
                 {
                     "name": file,
                     "path": file_path,
-                    "size_bytes": file_size,
+                    "size_bytes": stat.st_size,
                     "type": file_type,
                 }
             )
@@ -27,13 +27,17 @@ def create_index(directory, output_file="index.json"):
 def search_index(index_file, query=None, size=None, file_type=None):
     with open(index_file, "r") as file:
         index = json.load(file)
-    results = [
-        entry
-        for entry in index
-        if (query.lower() in entry["name"].lower() if query else True)
-        and (entry["size_bytes"] == size if size else True)
-        and (entry["type"] == file_type if file_type else True)
-    ]
+
+    results = []
+    for entry in index:
+        if query and query.lower() not in entry["name"].lower():
+            continue
+        if size and entry["size_bytes"] != size:
+            continue
+        if file_type and entry["type"] != file_type:
+            continue
+        results.append(entry)
+
     if results:
         print(f"Found {len(results)} results:")
         for result in results:
