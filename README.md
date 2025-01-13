@@ -28,7 +28,12 @@ Challenge: A directory contains multiple files and directories of non-uniform fi
 
 4. Install the required dependencies:
   ```bash
-    pip install -r requirements.txt
+    pip install -r libs.txt
+  ```
+
+5. Optional: Install dev dependencies for the project:
+  ```bash
+    pip install -r dev.txt
   ```
 
 ## Available Commands
@@ -130,4 +135,10 @@ Here's an example of what the `index.json` file might look like:
       "type": "image/jpeg"
     }
   ]
+```
+
+## Running Tests
+To run the tests for the script run the following command:
+```bash
+  pytest tests/
 ```
