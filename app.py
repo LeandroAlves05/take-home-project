@@ -24,15 +24,19 @@ def create_index(directory, output_file="index.json"):
     print(f"Index created: {output_file}")
 
 
-def search_index(index_file, query=None, size=None, file_type=None):
+def search_index(
+    index_file, filename=None, size_min=None, size_max=None, file_type=None
+):
     with open(index_file, "r") as file:
         index = json.load(file)
 
     results = []
     for entry in index:
-        if query and query.lower() not in entry["name"].lower():
+        if filename and filename.lower() not in entry["name"].lower():
             continue
-        if size and entry["size_bytes"] != size:
+        if size_min is not None and entry["size_bytes"] < size_min:
+            continue
+        if size_max is not None and entry["size_bytes"] > size_max:
             continue
         if file_type and entry["type"] != file_type:
             continue
@@ -53,7 +57,7 @@ if __name__ == "__main__":
         print(
             "Usage:\n"
             "  To index: python main.py index <directory>\n"
-            "  To search: python main.py search <query> [--size SIZE] [--type TYPE]"
+            "  To search: python main.py search [--filename NAME] [--size-min SIZE] [--size-max SIZE] [--type TYPE]"
         )
         sys.exit(1)
 
@@ -62,18 +66,30 @@ if __name__ == "__main__":
         directory = sys.argv[2]
         create_index(directory)
     elif command == "search":
-        if len(sys.argv) < 3:
-            print("Provide a query or filter for search.")
-            sys.exit(1)
-        query = sys.argv[2] if sys.argv[2] != '""' else None
-        size = None
+        filename = None
+        size_min = None
+        size_max = None
         file_type = None
-        if "--size" in sys.argv:
-            size_index = sys.argv.index("--size") + 1
-            size = int(sys.argv[size_index])
+
+        if "--filename" in sys.argv:
+            filename_index = sys.argv.index("--filename") + 1
+            filename = sys.argv[filename_index]
+        if "--size-min" in sys.argv:
+            size_min_index = sys.argv.index("--size-min") + 1
+            size_min = int(sys.argv[size_min_index])
+        if "--size-max" in sys.argv:
+            size_max_index = sys.argv.index("--size-max") + 1
+            size_max = int(sys.argv[size_max_index])
         if "--type" in sys.argv:
             type_index = sys.argv.index("--type") + 1
             file_type = sys.argv[type_index]
-        search_index("index.json", query=query, size=size, file_type=file_type)
+
+        search_index(
+            "index.json",
+            filename=filename,
+            size_min=size_min,
+            size_max=size_max,
+            file_type=file_type,
+        )
     else:
         print("Invalid usage. See instructions.")

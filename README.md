@@ -31,9 +31,18 @@ Challenge: A directory contains multiple files and directories of non-uniform fi
     pip install -r requirements.txt
   ```
 
-## Usage
+## Available Commands
+**Create Index**
+  ```bash
+    python app.py index <args>
+  ```
 
-The script supports two main commands through CLI: **index** and **search**
+**Search Files**
+  ```bash
+    python app.py search <args>
+  ```
+
+## Usage
 
 #### 1. Index Files
 Creates an index of all files in a directory and saves it to `index.json`
@@ -50,11 +59,11 @@ Searches for files in the index based on name, size, and/or content type
 
 **Search by Name**
   ```bash
-    python app.py search <filename>
+    python app.py search --filename <partial-name>
   ```
   - Example:
     ```bash
-      python app.py search user1.json
+      python app.py search --filename user1.json
     ```
 
  You can also search for multiple files with the same name
@@ -68,16 +77,16 @@ Searches for files in the index based on name, size, and/or content type
       - user2.json (18 bytes, application/json) at test_data/data\user2.json
     ```
 
-**Search by Size**
+**Search by Size Range**
   ```bash
-    python app.py search "" --size <size-in-bytes>
+    python app.py search --size-min <min-bytes> --size-max <max-bytes>
   ```
   - Example:
     ```bash
-      python app.py search "" --size 4567
+      python app.py search --size-min 100 --size-max 1000
     ```
 
-**Search by Type**
+**Search by MIME Type**
   ```bash
     python app.py search "" --type <mime-type>
   ```
@@ -89,11 +98,11 @@ Searches for files in the index based on name, size, and/or content type
 **Combining Criteria**
 You can combine the file criteria for a more specific search
   ```bash
-    python app.py search <partial-name> --size <size-in-bytes> --type <mime-type>
+    python app.py search --filename <partial-name> --size-min <min-bytes> --size-max <max-bytes> --type <mime-type>
   ```
   - Example:
     ```bash
-      python app.py search sample --type application/pdf
+      python app.py search --filename sample --size-min 100 --type application/pdf
     ```
 
 ## Index File Format
