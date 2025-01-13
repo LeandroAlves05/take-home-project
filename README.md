@@ -21,9 +21,9 @@ Challenge: A directory contains multiple files and directories of non-uniform fi
   ```
   ```bash
     # For macOS/Linux
-    source venv\Scripts\activate
-    # For Windows
     source venv/bin/activate
+    # For Windows
+    source venv\Scripts\activate
   ```
 
 4. Install the required dependencies:
