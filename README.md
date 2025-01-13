@@ -15,7 +15,7 @@ Challenge: A directory contains multiple files and directories of non-uniform fi
     python --version
   ```
 
-3. Optional: Create and activate a virtual environment:
+3. Create and activate a virtual environment:
   ```bash
     python -m venv venv
   ```
@@ -26,6 +26,11 @@ Challenge: A directory contains multiple files and directories of non-uniform fi
     source venv/bin/activate
   ```
 
+4. Install the required dependencies:
+  ```bash
+    pip install -r requirements.txt
+  ```
+
 ## Usage
 
 The script supports two main commands through CLI: **index** and **search**
@@ -33,11 +38,11 @@ The script supports two main commands through CLI: **index** and **search**
 #### 1. Index Files
 Creates an index of all files in a directory and saves it to `index.json`
   ```bash
-    python main.py index <directory-path>
+    python app.py index <directory-path>
   ```
   - Example:
     ```bash
-      python main.py index test_data
+      python app.py index test_data
     ```
 
 #### 2. Search Files
@@ -45,16 +50,16 @@ Searches for files in the index based on name, size, and/or content type
 
 **Search by Name**
   ```bash
-    python main.py search <filename>
+    python app.py search <filename>
   ```
   - Example:
     ```bash
-      python main.py search user1.json
+      python app.py search user1.json
     ```
 
  You can also search for multiple files with the same name
   ```bash
-    python main.py search user
+    python app.py search user
   ```
   - Output:
     ```bash
@@ -65,30 +70,30 @@ Searches for files in the index based on name, size, and/or content type
 
 **Search by Size**
   ```bash
-    python main.py search "" --size <size-in-bytes>
+    python app.py search "" --size <size-in-bytes>
   ```
   - Example:
     ```bash
-      python main.py search "" --size 4567
+      python app.py search "" --size 4567
     ```
 
 **Search by Type**
   ```bash
-    python main.py search "" --type <mime-type>
+    python app.py search "" --type <mime-type>
   ```
   - Example:
     ```bash
-      python main.py search "" --type image/jpeg
+      python app.py search "" --type image/jpeg
     ```
 
 **Combining Criteria**
 You can combine the file criteria for a more specific search
   ```bash
-    python main.py search <partial-name> --size <size-in-bytes> --type <mime-type>
+    python app.py search <partial-name> --size <size-in-bytes> --type <mime-type>
   ```
   - Example:
     ```bash
-      python main.py search sample --type application/pdf
+      python app.py search sample --type application/pdf
     ```
 
 ## Index File Format
